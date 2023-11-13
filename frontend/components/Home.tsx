@@ -9,21 +9,45 @@ import {
 
 import React from "react";
 
-const Home = () => {
+interface CardProps {
+  title: string;
+  content: string;
+  footer: string;
+}
+
+const CardComponent: React.FC<CardProps> = ({ title, content, footer }) => (
+  <Card>
+    <CardHeader>
+      <CardTitle>{title}</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <p>{content}</p>
+    </CardContent>
+    <CardFooter>
+      <p>{footer}</p>
+    </CardFooter>
+  </Card>
+);
+
+const Home: React.FC = () => {
+  const cards: CardProps[] = [
+    {
+      title: "Card Title 1",
+      content: "Card Content 1",
+      footer: "Card Footer 1",
+    },
+    {
+      title: "Card Title 2",
+      content: "Card Content 2",
+      footer: "Card Footer 2",
+    },
+  ];
+
   return (
-    <div className="flex my-20 flex-col items-center">
-      <Card>
-        <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Card Content</p>
-        </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
-      </Card>
+    <div className="flex my-20 flex-row gap-x-20 items-center mx-60">
+      {cards.map((card, index) => (
+        <CardComponent key={index} {...card} />
+      ))}
     </div>
   );
 };
