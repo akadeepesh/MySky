@@ -1,5 +1,6 @@
 import './App.css';
 import Home from './Components/Home';
+import Navbar from './Components/Navbar';
 import { DarkThemeToggle, Flowbite } from 'flowbite-react';
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <div className="App">
       <Flowbite>
         <Home />
+        <Navbar />
         <DarkThemeToggle />
       </Flowbite>
     </div>

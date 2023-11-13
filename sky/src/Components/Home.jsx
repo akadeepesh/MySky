@@ -1,6 +1,6 @@
 import { Button } from 'flowbite-react';
 
-export default function MyPage() {
+export default function Home() {
     return (
         <div>
             <Button>Click me</Button>
