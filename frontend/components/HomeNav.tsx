@@ -5,9 +5,9 @@ const LandingNav = () => {
   return (
     <nav className="flex md:mt-2 justify-between h-20 items-center w-screen">
       <Link href="/">
-        <a className="font-bold text-xl md:text-2xl mx-1 md:mx-4 hover:text-slate-200 duration-200">
+        <div className="font-bold text-xl md:text-2xl mx-1 md:mx-4 hover:text-slate-200 duration-200">
           The Sky
-        </a>
+        </div>
       </Link>
       <ThemeToggle className="top-6 right-6 absolute" />
     </nav>

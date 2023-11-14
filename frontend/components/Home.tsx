@@ -164,25 +164,25 @@ const Home: React.FC = () => {
       description:
         "Of course, ladki ka darja bohot upr hai, pr ladko ki taraf se kuch lines",
       content: `Zimmedariyan bhar jati hain koi khwaab nhi hota
-            Sawal bohot aise hote jinka koi jawaab nhi hota
-            Khushi sabki chahiye or apna koi khyal nhi hota
-            Sab sath leke chalna to hai pr koi saath nhi hota
-            Kuch ladke hi hain, bas ladte hi hain
-            Kuch gharpe bhi hain bas padhte ni hain
-            Bahar bhi hain kuch aawara ladke
-            Or chhip k baithe kuch nakara gharpe
-            Ladki hue to gudiya laadli laxmi hue hai
-            Ladka hai to aaya hai sahaara banke
-            Shayad vo hasta chehra mehnat k peeche thak gya hai
-            Haal mat puchna pr, usko “sab theek hai” ratt gya hai
-            Kya krna hai zindagi me pta hai usse, kya krna tha kahi dabb gya hai
-            Vo ladka hi hai jo akela marr k bhi bach gya hai.
-            `,
+      Sawal bohot aise hote jinka koi jawaab nhi hota
+      Khushi sabki chahiye or apna koi khyal nhi hota
+      Sab sath leke chalna to hai pr koi saath nhi hota
+      Kuch ladke hi hain, bas ladte hi hain
+      Kuch gharpe bhi hain bas padhte ni hain
+      Bahar bhi hain kuch aawara ladke
+      Or chhip k baithe kuch nakara gharpe
+      Ladki hue to gudiya laadli laxmi hue hai
+      Ladka hai to aaya hai sahaara banke
+      Shayad vo hasta chehra mehnat k peeche thak gya hai
+      Haal mat puchna pr, usko “sab theek hai” ratt gya hai
+      Kya krna hai zindagi me pta hai usse, kya krna tha kahi dabb gya hai
+      Vo ladka hi hai jo akela marr k bhi bach gya hai.
+      `,
     },
   ];
 
   return (
-    <div className="flex my-20 flex-wrap flex-row gap-20 items-center mx-60">
+    <div className="flex my-20 flex-wrap flex-row gap-20 items-center mx-10 lg:mx-60 md:mx-40 sm:mx-20">
       {cards.map((card, index) => (
         <CardComponent key={index} {...card} />
       ))}
