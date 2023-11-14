@@ -7,8 +7,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import React, { useState } from "react";
-import { Button } from "./ui/button";
-import { IoStarOutline, IoStarSharp } from "react-icons/io5";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+import { IoMdStarOutline, IoMdStar } from "react-icons/io";
 
 interface CardProps {
   title: string;
@@ -42,12 +48,23 @@ const CardComponent: React.FC<CardProps> = ({
         <p>
           <i>~Deepesh</i>
         </p>
-        <Button
-          className="rounded-sm bg-background text-foreground hover:bg-secondary"
-          onClick={handleStarClick}
-        >
-          {isStarred ? <IoStarSharp size={25} /> : <IoStarOutline size={25} />}
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger
+              className="rounded-sm bg-background text-foreground hover:bg-secondary p-2"
+              onClick={handleStarClick}
+            >
+              {isStarred ? (
+                <IoMdStar size={25} />
+              ) : (
+                <IoMdStarOutline size={25} />
+              )}
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{isStarred ? "Remove From" : "Add To"} Favourites</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </CardFooter>
     </Card>
   );
