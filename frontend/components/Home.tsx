@@ -6,8 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-import React from "react";
+import React, { useState } from "react";
+import { Button } from "./ui/button";
+import { IoStarOutline, IoStarSharp } from "react-icons/io5";
 
 interface CardProps {
   title: string;
@@ -19,24 +20,38 @@ const CardComponent: React.FC<CardProps> = ({
   title,
   description,
   content,
-}) => (
-  <Card className="w-screen">
-    <CardHeader>
-      <CardTitle>{title}</CardTitle>
-      <CardDescription>{description}</CardDescription>
-    </CardHeader>
-    <CardContent>
-      {content.split("\n").map((line, index) => (
-        <p key={index}>{line}</p>
-      ))}
-    </CardContent>
-    <CardFooter>
-      <p>
-        <i>~Deepesh</i>
-      </p>
-    </CardFooter>
-  </Card>
-);
+}) => {
+  const [isStarred, setIsStarred] = useState(false);
+
+  const handleStarClick = () => {
+    setIsStarred(!isStarred);
+  };
+
+  return (
+    <Card className="w-screen">
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        {content.split("\n").map((line, index) => (
+          <p key={index}>{line}</p>
+        ))}
+      </CardContent>
+      <CardFooter className=" justify-between">
+        <p>
+          <i>~Deepesh</i>
+        </p>
+        <Button
+          className="rounded-sm bg-background text-foreground hover:bg-secondary"
+          onClick={handleStarClick}
+        >
+          {isStarred ? <IoStarSharp size={25} /> : <IoStarOutline size={25} />}
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+};
 
 const Home: React.FC = () => {
   const cards: CardProps[] = [
