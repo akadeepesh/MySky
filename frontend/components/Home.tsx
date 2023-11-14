@@ -44,7 +44,7 @@ const CardComponent: React.FC<CardProps> = ({
           <p key={index}>{line}</p>
         ))}
       </CardContent>
-      <CardFooter className=" justify-between">
+      <CardFooter className="justify-between">
         <p>
           <i>~Deepesh</i>
         </p>
@@ -73,7 +73,7 @@ const CardComponent: React.FC<CardProps> = ({
 const Home: React.FC = () => {
   const cards: CardProps[] = [
     {
-      title: "Kabhi mila nhi tujse",
+      title: "Kabhi mila nhi tujse, Pr janta hu tuje",
       description: "Scene: Imaging a girl who's waiting for me",
       content: `Kabhi mila nhi tujse, Pr janta hu tuje
           Bhot nadan hai, Pr manta hu tuje

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
 import { ThemeToggle } from "./ThemeToggle";
 
 const LandingNav = () => {
@@ -9,7 +10,10 @@ const LandingNav = () => {
           The Sky
         </div>
       </Link>
-      <ThemeToggle className="top-6 right-6 absolute" />
+      <div className="flex justify-end items-center gap-3">
+        <ThemeToggle className="" />
+        <UserButton afterSignOutUrl="/" />
+      </div>
     </nav>
   );
 };
