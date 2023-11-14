@@ -13,7 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
+import { Star } from "lucide-react";
 import { IoMdStarOutline, IoMdStar } from "react-icons/io";
 
 interface CardProps {
@@ -51,14 +51,15 @@ const CardComponent: React.FC<CardProps> = ({
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger
-              className="rounded-sm bg-background text-foreground hover:bg-secondary p-2"
+              className="rounded-sm hover:bg-secondary p-2"
               onClick={handleStarClick}
             >
-              {isStarred ? (
-                <IoMdStar size={25} />
-              ) : (
-                <IoMdStarOutline size={25} />
-              )}
+              <Star
+                size={25}
+                color={isStarred ? "black" : "white"}
+                fill={isStarred ? "white" : ""}
+                strokeWidth={1}
+              />
             </TooltipTrigger>
             <TooltipContent>
               <p>{isStarred ? "Remove From" : "Add To"} Favourites</p>
