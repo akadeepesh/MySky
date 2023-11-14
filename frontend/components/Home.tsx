@@ -20,7 +20,7 @@ const CardComponent: React.FC<CardProps> = ({
   description,
   content,
 }) => (
-  <Card>
+  <Card className="w-screen">
     <CardHeader>
       <CardTitle>{title}</CardTitle>
       <CardDescription>{description}</CardDescription>
