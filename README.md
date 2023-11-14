@@ -27,7 +27,3 @@ Now, you can visit `http://localhost:3000` in your browser to see the project.
 ## Contributing
 
 Contributions are welcome! If you have a Shayari to share or an improvement to suggest, feel free to open an issue or submit a pull request.
-
-## License
-
-This project is open source and available under the MIT License.
