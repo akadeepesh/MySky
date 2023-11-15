@@ -21,6 +21,7 @@ interface CardProps {
   title: string;
   description: string;
   content: string;
+  is_fav: boolean;
 }
 
 const CardComponent: React.FC<CardProps> = ({
@@ -28,18 +29,20 @@ const CardComponent: React.FC<CardProps> = ({
   title,
   description,
   content,
+  is_fav,
 }) => {
-  const [isStarred, setIsStarred] = useState(false);
+  const [isStarred, setIsStarred] = useState(is_fav);
 
   const handleStarClick = async () => {
     setIsStarred(!isStarred);
     if (!isStarred) {
       try {
-        const response = await axios.post("http://localhost:8000/cards/", {
-          title: title,
-          description: description,
-          content: content,
-        });
+        const response = await axios.patch(
+          `http://localhost:8000/cards/${id}/`,
+          {
+            is_fav: true,
+          }
+        );
 
         console.log(response.data);
       } catch (error) {
@@ -47,8 +50,11 @@ const CardComponent: React.FC<CardProps> = ({
       }
     } else {
       try {
-        const response = await axios.delete(
-          `http://localhost:8000/cards/${id}/`
+        const response = await axios.patch(
+          `http://localhost:8000/cards/${id}/`,
+          {
+            is_fav: false,
+          }
         );
 
         console.log(response.data);
@@ -73,7 +79,7 @@ const CardComponent: React.FC<CardProps> = ({
         <p>
           <i>~Deepesh</i>
         </p>
-        <TooltipProvider>
+        {/* <TooltipProvider>
           <Tooltip>
             <TooltipTrigger
               className="rounded-sm hover:bg-secondary p-2"
@@ -90,169 +96,34 @@ const CardComponent: React.FC<CardProps> = ({
               <p>{isStarred ? "Remove From" : "Add To"} Favourites</p>
             </TooltipContent>
           </Tooltip>
-        </TooltipProvider>
+        </TooltipProvider> */}
       </CardFooter>
     </Card>
   );
 };
 
+import { useEffect } from "react";
+
 const Home: React.FC = () => {
-  const cards: CardProps[] = [
-    {
-      id: 1,
-      title: "Kabhi mila nhi tujse, Pr janta hu tuje",
-      description: "Scene: Imaging a girl who's waiting for me",
-      content: `Kabhi mila nhi tujse, Pr janta hu tuje
-          Bhot nadan hai, Pr manta hu tuje
-          Chhoti si baat pr rooth jati hai
-          Phir gale laga kr sab bhool jati hai
-          Kabhi mila nhi tujse, Pr janta hu tuje
-          Meri har cheez ka khyal kaise rakh leti hai tu
-          Na hoke bhi yha, mere pass kaise reh leti hai tu
-          Kabhi mila nhi tujse, pr janta hu tuje
-          Bhot jidhi hai, sochti hai apni har baat manwa to aata hi hoga
-          Aankho se bta deti hai sari baate, jaise mai to sab jaanta hi hoga
-          Pta nhi tujse kab mulakat hogi
-          Pr, vo bhi kya haseen raat hogi
-          Mai teri baate tuje hi btaunga 
-          Bhale hi, Kabhi mila nhi tujse
-          pr jaanta hu tuje. 
-          `,
-    },
-    {
-      id: 2,
-      title: "Nhi Janta",
-      description: "Tired Feeling",
-      content: `Tere khwab k sahare mai kab tak jee paunga, nhi janta
-      Tuje in panno pe mai kab tak likh paunga, nhi janta
-      Saanse to chl rhi hai meri, dhadkan kab sun paunga, nhi janta
-      Bas janta hu ki ek talaash pe nikla hu
-      Laut k aaunga ya laash ban jaunga, nhi janta.
-      `,
-    },
-    {
-      id: 3,
-      title: "Dost",
-      description: "For my best friend Kinshu",
-      content: `Vo dost hai mera, usse apni jaan se bhi jada chahta hu
-      Meri shayari uspe bhale hi na ho, pr sabse pehle usse sunata hu
-      Meri zindagi usse bhale hi na ho, pr jab tak vo hai sirf tab tak jeena chahta hu
-      Vo dost hai mera, mai usse apni jaan se bhi jada chahta hu
-      Meri sari taqleef sari preshani sirf vo hi samjhta hai
-      Chahe kuch bhi ho jaye, muje akela kabhi nhi rakhta hai
-      Uske sare raaj sirf muje pta hai, sochta hoga vo ki auro ko bhi bta rakhe hai
-      Samjhta hu usko har kisi se jada mai, har jagah humne apni dosti k jhande gaad rakhe hai
-      Vo dost hai mera, mai usse apni jaan se bhi jada chahta hu
-      Meri zindagi usse bhale hi na ho, pr jab tak vo hai sirf tab tak jeena chahta hu
-      `,
-    },
-    {
-      id: 4,
-      title: "Iss chaand me",
-      description: "Imagining Nature",
-      content: `Iss chaand me, mai ek chehra dhundne ki koshish krta hu
-      In tarro ko gin-gin kr, teri umr badhata rehta hu
-      In parindo ke jode ko dekh kr, yu hi jeene ko dil krta hai
-      In ped podho ko dekh kr, ab sang theharne ka man krta hai
-      Iss samandar ko dekh kr, ab uss chaand se milne ko jee krta hai
-      Iss chaand me, mai ek chehra dhundne ki kosish krta hu
-      `,
-    },
-    {
-      id: 5,
-      title: "Akelapan",
-      description: "Lack of interest",
-      content: `Bhook pyas neend sab mit rhi hai
-      Teri yaad k aage duniya nhi dikh rhi hai
-      Baitha hu apne sath teri yaad mai
-      Kisse btau kaise btau kitna barbad mai
-      Zindagi chhodne ki batte to mano aam ho gyi
-      Ab ye dard ki zindagi mere naam ho gyi
-      Jo likh rha hu khi vhi meri maut ka paigaam to nhi.
-      `,
-    },
-    {
-      id: 6,
-      title: "Ab aankhe band krli maine",
-      description: "Using different contexts of closing eyes",
-      content: `Ab aankhe band krli maine
-      Phir kyu mujhko vo dikhti hai
-      Kehte hai uska shehar alag hai
-      Phir kyu yaadon mai rehti hai
-      Ab aankhe band krli maine
-      To kyu mere sath vo jeeti hai
-      Kehte hai bhor k sapne sach hote hai
-      To kyu ye aankhe khulti hai
-      Ab aankhe band krli maine
-      Kyu mai sab jaan jata hu
-      Kehte hai, tum kabhi uske nhi ho sakte
-      Phir kyu use mai chahta hu.
-      `,
-    },
-    {
-      id: 7,
-      title: "Dhundhte Dhundhte",
-      description: "Fond of",
-      content: `Tuje dhondhte dhondhte sarhade paar kar jate hai
-      Aaj kal ye buzzdil har cheez se dar jate hai
-      Ab khwab kya dekhe thake hare log
-      Sote aise hai ki mar jate hai.
-      `,
-    },
-    {
-      id: 8,
-      title: "...",
-      description: "Going to sleep",
-      content: `Pero mai chhale hai mere
-      Kaaton pe chlta hu
-      Jo phool tuje dena hai
-      Uski jad dhundhta rehta hu
-      Or kya khoob hai ye badal 
-      Jinpe tere naam ka pehla akshar bunta hu
-      Suraj doob gya in aasuo se ab
-      Chand khil gya hoga mera
-      Chlo, neend mai milta hu!!!
-      `,
-    },
-    {
-      id: 9,
-      title: "Syahi",
-      description: "Refering myself as pen and my love as ink",
-      content: `Chalte chalte har baar girta hun
-      Udte udte har baar mai marta hun
-      Aasun ab phishal rhe hai iss ret ki tarah
-      Har raat sawera hone ka intezaar karta hun
-      Sawal mere hazar ho gye, panne khatam hona na hona uske hath mai hai
-      Kalam sukha de meri koi matlab nhi, mai aasuo se syahi bharta hun.
-      `,
-    },
-    {
-      id: 10,
-      title: "Ladke",
-      description:
-        "Of course, ladki ka darja bohot upr hai, pr ladko ki taraf se kuch lines",
-      content: `Zimmedariyan bhar jati hain koi khwaab nhi hota
-      Sawal bohot aise hote jinka koi jawaab nhi hota
-      Khushi sabki chahiye or apna koi khyal nhi hota
-      Sab sath leke chalna to hai pr koi saath nhi hota
-      Kuch ladke hi hain, bas ladte hi hain
-      Kuch gharpe bhi hain bas padhte ni hain
-      Bahar bhi hain kuch aawara ladke
-      Or chhip k baithe kuch nakara gharpe
-      Ladki hue to gudiya laadli laxmi hue hai
-      Ladka hai to aaya hai sahaara banke
-      Shayad vo hasta chehra mehnat k peeche thak gya hai
-      Haal mat puchna pr, usko “sab theek hai” ratt gya hai
-      Kya krna hai zindagi me pta hai usse, kya krna tha kahi dabb gya hai
-      Vo ladka hi hai jo akela marr k bhi bach gya hai.
-      `,
-    },
-  ];
+  const [cards, setCards] = useState<CardProps[]>([]);
+
+  useEffect(() => {
+    const fetchCards = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/cards/");
+        setCards(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCards();
+  }, []);
 
   return (
     <div className="flex my-20 flex-wrap flex-row gap-20 items-center mx-10 lg:mx-60 md:mx-40 sm:mx-20">
-      {cards.map((card, index) => (
-        <CardComponent key={index} {...card} />
+      {cards.map((card) => (
+        <CardComponent key={card.id} {...card} />
       ))}
     </div>
   );

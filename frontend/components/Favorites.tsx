@@ -21,6 +21,7 @@ interface CardProps {
   title: string;
   description: string;
   content: string;
+  is_fav: boolean;
 }
 
 const CardComponent: React.FC<CardProps> = ({
@@ -28,13 +29,13 @@ const CardComponent: React.FC<CardProps> = ({
   title,
   description,
   content,
+  is_fav,
 }) => {
-  const [isStarred, setIsStarred] = useState(true);
-
   const handleStarClick = async () => {
-    setIsStarred(!isStarred);
     try {
-      const response = await axios.delete(`http://localhost:8000/cards/${id}/`);
+      const response = await axios.patch(`http://localhost:8000/cards/${id}/`, {
+        is_fav: !is_fav,
+      });
 
       console.log(response.data);
     } catch (error) {
@@ -65,8 +66,8 @@ const CardComponent: React.FC<CardProps> = ({
             >
               <Star
                 size={25}
-                color={isStarred ? "black" : "white"}
-                fill={isStarred ? "white" : ""}
+                color={is_fav ? "black" : "white"}
+                fill={is_fav ? "white" : ""}
                 strokeWidth={1}
               />
             </TooltipTrigger>
@@ -87,7 +88,7 @@ const Favorites: React.FC = () => {
     const fetchFavorites = async () => {
       try {
         const response = await axios.get("http://localhost:8000/cards/");
-        setCards(response.data);
+        setCards(response.data.filter((card: CardProps) => card.is_fav));
       } catch (error) {
         console.error(error);
       }
