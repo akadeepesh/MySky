@@ -14,7 +14,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Star } from "lucide-react";
-import { IoMdStarOutline, IoMdStar } from "react-icons/io";
 
 interface CardProps {
   title: string;
