@@ -31,12 +31,14 @@ const CardComponent: React.FC<CardProps> = ({
   content,
   is_fav,
 }) => {
+  const [isStarred, setIsStarred] = useState(is_fav);
   const handleStarClick = async () => {
+    setIsStarred(!isStarred);
     try {
       const response = await axios.patch(
         `https://mysky-production.up.railway.app/cards/${id}/`,
         {
-          is_fav: !is_fav,
+          is_fav: false,
         }
       );
 
@@ -69,8 +71,8 @@ const CardComponent: React.FC<CardProps> = ({
             >
               <Star
                 size={25}
-                color={is_fav ? "black" : "white"}
-                fill={is_fav ? "white" : ""}
+                color={isStarred ? "black" : "white"}
+                fill={isStarred ? "white" : ""}
                 strokeWidth={1}
               />
             </TooltipTrigger>
