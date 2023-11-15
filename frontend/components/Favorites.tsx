@@ -33,9 +33,12 @@ const CardComponent: React.FC<CardProps> = ({
 }) => {
   const handleStarClick = async () => {
     try {
-      const response = await axios.patch(`http://localhost:8000/cards/${id}/`, {
-        is_fav: !is_fav,
-      });
+      const response = await axios.patch(
+        `https://mysky-production.up.railway.app/cards/${id}/`,
+        {
+          is_fav: !is_fav,
+        }
+      );
 
       console.log(response.data);
     } catch (error) {
@@ -87,7 +90,9 @@ const Favorites: React.FC = () => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/cards/");
+        const response = await axios.get(
+          "https://mysky-production.up.railway.app/cards/"
+        );
         setCards(response.data.filter((card: CardProps) => card.is_fav));
       } catch (error) {
         console.error(error);
