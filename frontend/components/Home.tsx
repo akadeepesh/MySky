@@ -14,22 +14,48 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Star } from "lucide-react";
+import axios from "axios";
 
 interface CardProps {
+  id: number;
   title: string;
   description: string;
   content: string;
 }
 
 const CardComponent: React.FC<CardProps> = ({
+  id,
   title,
   description,
   content,
 }) => {
   const [isStarred, setIsStarred] = useState(false);
 
-  const handleStarClick = () => {
+  const handleStarClick = async () => {
     setIsStarred(!isStarred);
+    if (!isStarred) {
+      try {
+        const response = await axios.post("http://localhost:8000/cards/", {
+          title: title,
+          description: description,
+          content: content,
+        });
+
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      try {
+        const response = await axios.delete(
+          `http://localhost:8000/cards/${id}/`
+        );
+
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   return (
@@ -73,6 +99,7 @@ const CardComponent: React.FC<CardProps> = ({
 const Home: React.FC = () => {
   const cards: CardProps[] = [
     {
+      id: 1,
       title: "Kabhi mila nhi tujse, Pr janta hu tuje",
       description: "Scene: Imaging a girl who's waiting for me",
       content: `Kabhi mila nhi tujse, Pr janta hu tuje
@@ -93,6 +120,7 @@ const Home: React.FC = () => {
           `,
     },
     {
+      id: 2,
       title: "Nhi Janta",
       description: "Tired Feeling",
       content: `Tere khwab k sahare mai kab tak jee paunga, nhi janta
@@ -103,6 +131,7 @@ const Home: React.FC = () => {
       `,
     },
     {
+      id: 3,
       title: "Dost",
       description: "For my best friend Kinshu",
       content: `Vo dost hai mera, usse apni jaan se bhi jada chahta hu
@@ -118,6 +147,7 @@ const Home: React.FC = () => {
       `,
     },
     {
+      id: 4,
       title: "Iss chaand me",
       description: "Imagining Nature",
       content: `Iss chaand me, mai ek chehra dhundne ki koshish krta hu
@@ -129,6 +159,7 @@ const Home: React.FC = () => {
       `,
     },
     {
+      id: 5,
       title: "Akelapan",
       description: "Lack of interest",
       content: `Bhook pyas neend sab mit rhi hai
@@ -141,6 +172,7 @@ const Home: React.FC = () => {
       `,
     },
     {
+      id: 6,
       title: "Ab aankhe band krli maine",
       description: "Using different contexts of closing eyes",
       content: `Ab aankhe band krli maine
@@ -158,6 +190,7 @@ const Home: React.FC = () => {
       `,
     },
     {
+      id: 7,
       title: "Dhundhte Dhundhte",
       description: "Fond of",
       content: `Tuje dhondhte dhondhte sarhade paar kar jate hai
@@ -167,6 +200,7 @@ const Home: React.FC = () => {
       `,
     },
     {
+      id: 8,
       title: "...",
       description: "Going to sleep",
       content: `Pero mai chhale hai mere
@@ -181,6 +215,7 @@ const Home: React.FC = () => {
       `,
     },
     {
+      id: 9,
       title: "Syahi",
       description: "Refering myself as pen and my love as ink",
       content: `Chalte chalte har baar girta hun
@@ -192,6 +227,7 @@ const Home: React.FC = () => {
       `,
     },
     {
+      id: 10,
       title: "Ladke",
       description:
         "Of course, ladki ka darja bohot upr hai, pr ladko ki taraf se kuch lines",
