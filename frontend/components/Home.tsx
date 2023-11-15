@@ -79,7 +79,7 @@ const CardComponent: React.FC<CardProps> = ({
         <p>
           <i>~Deepesh</i>
         </p>
-        {/* <TooltipProvider>
+        <TooltipProvider>
           <Tooltip>
             <TooltipTrigger
               className="rounded-sm hover:bg-secondary p-2"
@@ -96,7 +96,7 @@ const CardComponent: React.FC<CardProps> = ({
               <p>{isStarred ? "Remove From" : "Add To"} Favourites</p>
             </TooltipContent>
           </Tooltip>
-        </TooltipProvider> */}
+        </TooltipProvider>
       </CardFooter>
     </Card>
   );
