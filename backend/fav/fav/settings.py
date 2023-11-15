@@ -35,7 +35,7 @@ DEBUG = True
 #     "localhost",
 #     "https://my-sky-seven.vercel.app",
 # ]
-ALLOWED_HOST = ["*"]
+ALLOWED_HOST = ["*", "mysky-production.up.railway.app"]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
