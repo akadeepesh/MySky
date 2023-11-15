@@ -6,6 +6,7 @@ class Card(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     content = models.TextField()
+    is_fav = models.BooleanField(default=False)
     favorited_by = models.ManyToManyField(
         get_user_model(), related_name="favorites", blank=True
     )

@@ -1,4 +1,3 @@
-import { ThemeToggle } from "./ThemeToggle";
 import { useUser } from "@clerk/nextjs";
 
 const LandingNav = () => {
