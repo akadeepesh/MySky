@@ -5,4 +5,4 @@ from .models import Card
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ["id", "title", "description", "content", "is_fav", "favorited_by"]
+        fields = ["id", "title", "description", "content", "is_fav", "users_favorited"]

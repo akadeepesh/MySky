@@ -38,7 +38,7 @@ const CardComponent: React.FC<CardProps> = ({
     if (!isStarred) {
       try {
         const response = await axios.patch(
-          `https://mysky-production.up.railway.app/cards/${id}/`,
+          `${process.env.BACKEND_URL}+${id}/`,
           {
             is_fav: true,
           }
@@ -51,7 +51,7 @@ const CardComponent: React.FC<CardProps> = ({
     } else {
       try {
         const response = await axios.patch(
-          `https://mysky-production.up.railway.app/cards/${id}/`,
+          `${process.env.BACKEND_URL}+${id}/`,
           {
             is_fav: false,
           }
@@ -110,9 +110,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchCards = async () => {
       try {
-        const response = await axios.get(
-          "https://mysky-production.up.railway.app/cards/"
-        );
+        const response = await axios.get(`${process.env.BACKEND_URL}`);
         setCards(response.data);
       } catch (error) {
         console.error(error);

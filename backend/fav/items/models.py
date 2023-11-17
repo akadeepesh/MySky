@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 
 
 class Card(models.Model):
@@ -7,8 +6,8 @@ class Card(models.Model):
     description = models.TextField()
     content = models.TextField()
     is_fav = models.BooleanField(default=False)
-    favorited_by = models.ManyToManyField(
-        get_user_model(), related_name="favorites", blank=True
+    users_favorited = models.ManyToManyField(
+        "auth.User", related_name="favorite_cards", blank=True
     )
 
     def __str__(self):

@@ -30,17 +30,15 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# ALLOWED_HOSTS = [
-#     "127.0.0.1",
-#     "localhost",
-#     "https://my-sky-seven.vercel.app",
-# ]
-ALLOWED_HOSTS = ["mysky-production.up.railway.app"]
+URL = os.environ.get("BACKEND_URL")
+
+ALLOWED_HOSTS = ["localhost:3000", "127.0.0.1:3000", URL]
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://my-sky-seven.vercel.app",
-    "mysky-production.up.railway.app",
+    "https://" + URL,
 ]
 
 CORS_ALLOWED_CREDENTIALS = True
