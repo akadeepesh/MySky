@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = True
 
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", os.environ.get("BACKEND_URL")]
+ALLOWED_HOSTS = [os.environ.get("BACKEND_URL")]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
