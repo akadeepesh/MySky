@@ -36,7 +36,7 @@ const CardComponent: React.FC<CardProps> = ({
     setIsStarred(!isStarred);
     try {
       const response = await axios.patch(
-        `https://mysky-production.up.railway.app/cards/${id}/`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}+${id}/`,
         {
           is_fav: false,
         }
@@ -93,7 +93,7 @@ const Favorites: React.FC = () => {
     const fetchFavorites = async () => {
       try {
         const response = await axios.get(
-          "https://mysky-production.up.railway.app/cards/"
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}`
         );
         setCards(response.data.filter((card: CardProps) => card.is_fav));
       } catch (error) {

@@ -38,7 +38,7 @@ const CardComponent: React.FC<CardProps> = ({
     if (!isStarred) {
       try {
         const response = await axios.patch(
-          `${process.env.BACKEND_URL}+${id}/`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}+${id}/`,
           {
             is_fav: true,
           }
@@ -51,7 +51,7 @@ const CardComponent: React.FC<CardProps> = ({
     } else {
       try {
         const response = await axios.patch(
-          `${process.env.BACKEND_URL}+${id}/`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}+${id}/`,
           {
             is_fav: false,
           }
@@ -110,7 +110,9 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchCards = async () => {
       try {
-        const response = await axios.get(`${process.env.BACKEND_URL}`);
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}`
+        );
         setCards(response.data);
       } catch (error) {
         console.error(error);
