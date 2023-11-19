@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -101,8 +101,6 @@ const CardComponent: React.FC<CardProps> = ({
     </Card>
   );
 };
-
-import { useEffect } from "react";
 
 const Home: React.FC = () => {
   const [cards, setCards] = useState<CardProps[]>([]);
