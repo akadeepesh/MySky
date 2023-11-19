@@ -113,7 +113,7 @@ const Home: React.FC = () => {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}`
         );
-        setCards(response.data);
+        setCards(response.data.reverse());
       } catch (error) {
         console.error(error);
       }
