@@ -15,6 +15,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Star } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface CardProps {
   id: number;
@@ -88,7 +89,7 @@ const CardComponent: React.FC<CardProps> = ({
 
 const Favorites: React.FC = () => {
   const [cards, setCards] = useState<CardProps[]>([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
@@ -96,8 +97,10 @@ const Favorites: React.FC = () => {
           `${process.env.NEXT_PUBLIC_BACKEND_URL}`
         );
         setCards(response.data.filter((card: CardProps) => card.is_fav));
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
+        setIsLoading(false);
       }
     };
 
@@ -106,9 +109,14 @@ const Favorites: React.FC = () => {
 
   return (
     <div className="flex my-20 flex-wrap flex-row gap-20 items-center mx-10 lg:mx-60 md:mx-40 sm:mx-20">
-      {cards.map((card) => (
-        <CardComponent key={card.id} {...card} />
-      ))}
+      {isLoading ? (
+        <>
+          <Skeleton className="w-screen h-80" />
+          <Skeleton className="w-screen h-80" />
+        </>
+      ) : (
+        cards.map((card) => <CardComponent key={card.id} {...card} />)
+      )}
     </div>
   );
 };
