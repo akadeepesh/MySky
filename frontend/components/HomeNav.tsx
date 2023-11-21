@@ -57,7 +57,7 @@ const LandingNav = () => {
           <UserButton afterSignOutUrl="/" />
         </div>
       </nav>
-      <Progress className="h-2" value={33} />
+      {/* <Progress className="h-2" value={33} /> */}
     </div>
   );
 };
