@@ -1,12 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-
-
-class CustomUser(AbstractBaseUser, PermissionsMixin):
-    user_id = models.CharField(max_length=255, unique=True)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email_address = models.EmailField()
 
 
 class Card(models.Model):
@@ -14,6 +6,9 @@ class Card(models.Model):
     description = models.TextField()
     content = models.TextField()
     is_fav = models.BooleanField(default=False)
+    users_favorited = models.ManyToManyField(
+        "auth.User", related_name="favorite_cards", blank=True
+    )
 
     def __str__(self):
         return self.title
