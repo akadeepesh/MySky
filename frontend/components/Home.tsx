@@ -16,6 +16,7 @@ import {
 import { Star } from "lucide-react";
 import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useUser } from "@clerk/nextjs";
 
 interface CardProps {
   id: number;
@@ -32,38 +33,27 @@ const CardComponent: React.FC<CardProps> = ({
   content,
   is_fav,
 }) => {
+  const { user } = useUser();
   const [isStarred, setIsStarred] = useState(is_fav);
 
   const handleStarClick = async () => {
     setIsStarred(!isStarred);
     if (!isStarred) {
       try {
-        const response = await axios.patch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}+${id}/`,
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/favorites/`,
           {
-            is_fav: true,
+            user_id: user?.id,
+            card_id: id,
+            is_fav: !isStarred,
           }
         );
-
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      try {
-        const response = await axios.patch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}+${id}/`,
-          {
-            is_fav: false,
-          }
-        );
-
         console.log(response.data);
       } catch (error) {
         console.error(error);
       }
     }
-  };
+  }; // This is the correct place for the closing brace
 
   return (
     <Card className="w-screen">
@@ -104,6 +94,7 @@ const CardComponent: React.FC<CardProps> = ({
 };
 
 const Home: React.FC = () => {
+  const { user } = useUser();
   const [cards, setCards] = useState<CardProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -121,8 +112,25 @@ const Home: React.FC = () => {
       }
     };
 
+    const createUser = async () => {
+      try {
+        await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/`, {
+          clerk_id: user?.id,
+          first_name: user?.firstName,
+          last_name: user?.lastName,
+          email: user?.emailAddresses[0]?.emailAddress,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (user) {
+      createUser();
+    }
+
     fetchCards();
-  }, []);
+  }, [user]);
 
   return (
     <div className="flex my-20 flex-wrap flex-row gap-20 items-center mx-10 lg:mx-60 md:mx-40 sm:mx-20">
