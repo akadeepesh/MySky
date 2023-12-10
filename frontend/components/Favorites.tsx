@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import {
   Card,
@@ -32,17 +33,15 @@ const CardComponent: React.FC<CardProps> = ({
   content,
   is_fav,
 }) => {
+  const { user } = useUser();
   const [isStarred, setIsStarred] = useState(is_fav);
+
   const handleStarClick = async () => {
     setIsStarred(!isStarred);
     try {
-      const response = await axios.patch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}+${id}/`,
-        {
-          is_fav: false,
-        }
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/favorites/${user?.id}/${id}/`
       );
-
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -88,15 +87,16 @@ const CardComponent: React.FC<CardProps> = ({
 };
 
 const Favorites: React.FC = () => {
+  const { user } = useUser();
   const [cards, setCards] = useState<CardProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/favorites/?user_id=${user?.id}`
         );
-        setCards(response.data.filter((card: CardProps) => card.is_fav));
+        setCards(response.data);
         setIsLoading(false);
       } catch (error) {
         console.error(error);
@@ -105,7 +105,7 @@ const Favorites: React.FC = () => {
     };
 
     fetchFavorites();
-  }, []);
+  }, [user?.id]);
 
   return (
     <div className="flex my-20 flex-wrap flex-row gap-20 items-center mx-10 lg:mx-60 md:mx-40 sm:mx-20">
