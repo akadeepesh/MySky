@@ -53,7 +53,7 @@ const CardComponent: React.FC<CardProps> = ({
         console.error(error);
       }
     }
-  }; // This is the correct place for the closing brace
+  };
 
   return (
     <Card className="w-screen">
@@ -102,7 +102,7 @@ const Home: React.FC = () => {
     const fetchCards = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/cards`
         );
         setCards(response.data.reverse());
         setIsLoading(false);

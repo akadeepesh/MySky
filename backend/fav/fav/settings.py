@@ -31,13 +31,12 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = False
 
 
-ALLOWED_HOSTS = [os.environ.get("BACKEND_URL")]
+ALLOWED_HOSTS = [os.environ.get("BACKEND_URL"), "localhost", "127.0.0.1"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://my-sky-seven.vercel.app",
-    "https://" + os.environ.get("BACKEND_URL"),
 ]
 
 CORS_ALLOWED_CREDENTIALS = True

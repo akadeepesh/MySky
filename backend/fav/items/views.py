@@ -29,7 +29,8 @@ class FavoriteDetail(generics.RetrieveDestroyAPIView):
         return Favorite.objects.filter(user__clerk_id=user_id, card__id=card_id)
 
 
-class UserCreate(generics.CreateAPIView):
+class UserCreate(generics.ListCreateAPIView):
+    queryset = User.objects.all()
     serializer_class = UserSerializer
 
     def create(self, request, *args, **kwargs):
@@ -45,4 +46,10 @@ class UserCreate(generics.CreateAPIView):
             return Response(serializer.data, status=status.HTTP_200_OK, headers=headers)
 
     def perform_create(self, serializer):
-        return User.objects.get_or_create(**serializer.validated_data), True
+        clerk_id = serializer.validated_data.get("clerk_id")
+        if User.objects.filter(clerk_id=clerk_id).exists():
+            print(f"User with Clerk ID {clerk_id} already exists.")
+            return User.objects.get(clerk_id=clerk_id), False
+        else:
+            print(f"Creating new user with Clerk ID {clerk_id}.")
+            return User.objects.create(**serializer.validated_data), True
