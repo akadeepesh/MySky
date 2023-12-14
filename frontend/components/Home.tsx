@@ -43,8 +43,8 @@ const CardComponent: React.FC<CardProps> = ({
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/favorites/`,
           {
-            user_id: user?.id,
-            card_id: id,
+            user: user?.id,
+            card: id,
             is_fav: !isStarred,
           }
         );
