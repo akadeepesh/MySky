@@ -1,20 +1,11 @@
 import { UserButton } from "@clerk/nextjs";
 import { ThemeToggle } from "./ThemeToggle";
-import { Button } from "./ui/button";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { Progress } from "@/components/ui/progress";
 
 const LandingNav = () => {
   const router = useRouter();
-
-  const handleclick = () => {
-    if (router.pathname === "/") {
-      router.push("/favorites");
-    } else if (router.pathname === "/favorites") {
-      router.push("/");
-    }
-  };
 
   const handleLogoClick = () => {
     router.push("/");
@@ -48,11 +39,6 @@ const LandingNav = () => {
         The Sky
       </div>
       <div className="flex justify-end items-center gap-3">
-        <span className="mr-6 md:mr-8 sm:mr-6 lg:mr-10">
-          <Button variant="outline" onClick={handleclick}>
-            {router.pathname === "/" ? "Favorites" : "Home"}
-          </Button>
-        </span>
         <ThemeToggle className="" />
         <UserButton afterSignOutUrl="/" />
       </div>
