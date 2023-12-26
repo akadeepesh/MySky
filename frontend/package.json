@@ -36,6 +36,7 @@
     "react-scroll": "^1.8.9",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
+    "yarn": "^1.22.21",
     "zod": "^3.22.4"
   },
   "devDependencies": {
