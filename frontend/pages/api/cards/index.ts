@@ -18,8 +18,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       break;
     case 'POST':
       try {
+        let title = await Card.findOne({title: req.body.title});
+        if(title){
+          res.status(400).json({success: false, message: "Title already exists"});
+        }
         const card: ICard = await Card.create(req.body);
         res.status(201).json({ success: true, data: card });
+      } catch (error) {
+        res.status(400).json({ success: false });
+      }
+      break;
+    case 'DELETE':
+      try {
+        const { id } = req.query;
+        await Card.findByIdAndDelete(id);
+        res.status(200).json({ success: true });
       } catch (error) {
         res.status(400).json({ success: false });
       }
