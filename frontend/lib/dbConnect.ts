@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 let isConnected = false;
 
-export const connectToDB = async ()=> {
+export const dbConnect = async ()=> {
     mongoose.set('strictQuery', true);
     if(!process.env.MONGODB_URL){
         return console.log("MongoDB URL not found");
@@ -19,3 +19,5 @@ export const connectToDB = async ()=> {
         console.log("Not connected",error);
     }
 }
+
+export default dbConnect;
