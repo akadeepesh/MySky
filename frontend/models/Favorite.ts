@@ -1,5 +1,3 @@
-// models/Favorite.ts
-
 import mongoose, { Document, Model } from 'mongoose';
 
 export interface IFavorite extends Document {

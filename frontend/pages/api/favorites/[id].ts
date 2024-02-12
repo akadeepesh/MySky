@@ -1,8 +1,6 @@
-// pages/api/favorites/[id].ts
-
 import type { NextApiRequest, NextApiResponse } from 'next';
-import dbConnect from '../../../lib/dbConnect';
-import Favorite, { IFavorite } from '../../../models/Favorite';
+import dbConnect from '@/lib/dbConnect';
+import Favorite, { IFavorite } from '@/models/Favorite';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const {
