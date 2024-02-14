@@ -46,7 +46,7 @@ const CardComponent: React.FC<CardProps> = ({
 const Home: React.FC = () => {
   const [cards, setCards] = useState<CardProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [error, setError] = useState<boolean>(false);
   useEffect(() => {
     const fetchCards = async () => {
       try {
@@ -56,7 +56,7 @@ const Home: React.FC = () => {
         setCards(response.data.reverse());
         setIsLoading(false);
       } catch (error) {
-        console.error(error);
+        setError(true);
         setIsLoading(false);
       }
     };
@@ -65,12 +65,23 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex my-20 flex-wrap flex-row gap-20 items-center mx-10 lg:mx-60 md:mx-40 sm:mx-20">
+    <div
+      className={`flex my-20 flex-wrap flex-row gap-20 ${
+        error ? "justify-center" : ""
+      } items-center mx-10 lg:mx-60 md:mx-40 sm:mx-20`}
+    >
       {isLoading ? (
         <>
           <Skeleton className="w-screen h-80" />
           <Skeleton className="w-screen h-80" />
         </>
+      ) : error ? (
+        <div className="bg-muted-foreground rounded-lg">
+          <div className="text-bold m-2">
+            Please have patience. The database has expired. We apologize for the
+            inconvenience.
+          </div>
+        </div>
       ) : (
         cards.map((card) => <CardComponent key={card.id} {...card} />)
       )}
