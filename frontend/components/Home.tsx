@@ -76,10 +76,17 @@ const Home: React.FC = () => {
           <Skeleton className="w-screen h-80" />
         </>
       ) : error ? (
-        <div className="bg-muted-foreground rounded-lg">
-          <div className="text-bold m-2">
-            Please have patience. The database has expired. We apologize for the
-            inconvenience.
+        <div className="rounded-lg h-screen justify-center items-center">
+          <div className="text-bold">
+            This Site is down due to some technical issues. Please visit
+            <br />
+            <a
+              href="https://simplicity-poetries.vercel.app/"
+              className="text-blue-500"
+            >
+              Simplicity{" "}
+            </a>
+            My new poetry site.
           </div>
         </div>
       ) : (
